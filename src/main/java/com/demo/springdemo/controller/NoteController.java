@@ -1,4 +1,4 @@
-package com.demo.springdemo;
+package com.demo.springdemo.controller;
 
 
 import com.demo.springdemo.model.NoteRequestDTO;
@@ -44,7 +44,7 @@ public class NoteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/summarize")
+    @PostMapping("/{id}/summarize")
     public ResponseEntity<String> summarize(@PathVariable Long id) {
         return ResponseEntity.ok(noteService.summarizeNoteContent(id));
     }
