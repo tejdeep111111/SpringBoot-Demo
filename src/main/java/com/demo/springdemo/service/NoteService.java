@@ -1,5 +1,6 @@
 package com.demo.springdemo.service;
 
+import com.demo.exception.NoteNotFoundException;
 import com.demo.springdemo.model.Note;
 import com.demo.springdemo.model.NoteRequestDTO;
 import com.demo.springdemo.model.NoteResponseDTO;
@@ -20,7 +21,8 @@ public class NoteService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .build();
-        return toDTO(note);
+        Note savedNote = noteRepository.save(note);
+        return toDTO(savedNote);
     }
 
     public List<NoteResponseDTO> getAllNotes() {
@@ -54,7 +56,7 @@ public class NoteService {
     // Helper method to find a note by ID or throw an exception if not found
     private Note findOrThrow(Long id) {
         return noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found with id: " + id));
+                .orElseThrow(() -> new NoteNotFoundException("Note not found with id: " + id));
     }
 
     // Helper method to convert Note entity to NoteResponseDTO

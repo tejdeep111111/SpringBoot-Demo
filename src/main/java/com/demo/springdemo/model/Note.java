@@ -16,16 +16,16 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-incrementing ID
     private Long id;
 
-    @Column(nullable = false) //title is required
+    @Column(nullable = false, length = 100) //title is required
     private String title;
 
-    @Column(nullable = false) //content is required
+    @Column(columnDefinition = "TEXT") //content is required
     private String content;
 
     private LocalDateTime createdAt;
 
     @PrePersist  //called before the entity is saved for the first time
-    protected void onCreate() {
+    protected void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
 }
