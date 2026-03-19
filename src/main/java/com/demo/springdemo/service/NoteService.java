@@ -40,6 +40,11 @@ public class NoteService {
         return toDTO(noteRepository.save(note));
     }
 
+    public void deleteNote(Long id) {
+        findOrThrow(id);
+        noteRepository.deleteById(id);
+    }
+
     public String summarizeNoteContent(Long id) {
         Note note = findOrThrow(id);
         return openAiService.summarize(note.getContent());
